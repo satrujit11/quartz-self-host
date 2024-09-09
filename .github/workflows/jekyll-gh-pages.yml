@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          submodules: 'recursive' # Ensure submodules are checked out
+          submodules: 'recursive'
 
       - name: Update Submodule
         run: |
@@ -37,10 +37,12 @@ jobs:
           cd ..
 
       - name: Commit Submodule Update
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git add Note
-          git commit -m "Update submodule Note to latest commit on main branch"
-          git push
+          git commit -m "Update submodule Note to latest commit on main branch" || echo "No changes to commit"
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
 
   build:
     needs: update-submodule
