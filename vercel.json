@@ -1,3 +1,14 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/node"
+    }
+  ],
+  "build": {
+    "env": {
+      "CUSTOM_BUILD_COMMAND": "git submodule update --init --recursive && npx quartz build"
+    }
+  }
 }
