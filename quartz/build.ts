@@ -42,8 +42,6 @@ function newBuildId() {
   return new Date().toISOString()
 }
 
-const contentDir = path.resolve(__dirname, cfg.configuration.contentDirectory || 'content'); // Default to 'content' if not specified
-
 async function buildQuartz(argv: Argv, mut: Mutex, clientRefresh: () => void) {
   const ctx: BuildCtx = {
     buildId: newBuildId(),
