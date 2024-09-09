@@ -1,3 +1,4 @@
 [submodule "Note"]
 	path = Note
 	url = git@github.com:satrujit11/Note.git
+	branch = main
