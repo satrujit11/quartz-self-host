@@ -21,7 +21,29 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  update-submodule:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: 'recursive' # Ensure submodules are checked out
+
+      - name: Update Submodule
+        run: |
+          cd Note
+          git checkout main
+          git pull origin main
+          cd ..
+
+      - name: Commit Submodule Update
+        run: |
+          git add Note
+          git commit -m "Update submodule Note to latest commit on main branch"
+          git push
+
   build:
+    needs: update-submodule
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
